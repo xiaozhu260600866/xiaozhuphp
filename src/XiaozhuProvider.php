@@ -1,4 +1,4 @@
-<?php namespace Xiaozhu;
+<?php namespace Xiaozhuphp;
 use Illuminate\Support\ServiceProvider;
 class XiaozhuProvider extends ServiceProvider
 {
@@ -34,7 +34,7 @@ class XiaozhuProvider extends ServiceProvider
         $GLOBALS["config"] = $config;
         $this->app->singleton('app', function ($app) {
 
-            return new Wechat\app( $GLOBALS["config"]);
+            return new admin\app( $GLOBALS["config"]);
         });
         
     }

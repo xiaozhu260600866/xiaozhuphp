@@ -1,5 +1,5 @@
 <?php
-namespace Xiaozhu\Facades;
+namespace XiaozhuPhp\Facades;
 use Illuminate\Support\Facades\Facade;
 class App extends Facade
 {
