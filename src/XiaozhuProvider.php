@@ -32,9 +32,9 @@ class XiaozhuProvider extends ServiceProvider
         require_once __DIR__."/function.php";
         $config =  require_once base_path('config/xiaozhu.php');
         $GLOBALS["config"] = $config;
-        $this->app->singleton('app', function ($app) {
+        $this->app->singleton('app2', function ($app) {
 
-            return new admin\app( $GLOBALS["config"]);
+            return new admin\app2( $GLOBALS["config"]);
         });
         
     }
@@ -46,7 +46,7 @@ class XiaozhuProvider extends ServiceProvider
     public function provides()
     {
         // 因为延迟加载 所以要定义 provides 函数 具体参考laravel 文档
-        return ['app',];
+        return ['app2',];
     }
 }
 ?>

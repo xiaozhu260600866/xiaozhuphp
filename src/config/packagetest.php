@@ -1,5 +1,5 @@
 <?php
-namespace Xiaozhu\config;
+namespace Xiaozhuphp\config;
 
 use Illuminate\Config\Repository;
 class Packagetest
