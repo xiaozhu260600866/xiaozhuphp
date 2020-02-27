@@ -19,6 +19,9 @@ function searchDate($searchType){
     }
     return array("start_date"=>$start_date,"end_date"=>$end_date);
 }
+function text($res){
+    return $res;
+}
 
 
 
