@@ -42,7 +42,7 @@ class XiaozhuJson extends Model
             //     Redis::hset(env("DB_DATABASE")."_".$this->table,$sql,json_encode($lists));
 
             // }
-           $lists = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->where(function($query) use ($request){
+           $lists = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                     })->paginate($page);
           
         }else{
@@ -51,7 +51,7 @@ class XiaozhuJson extends Model
                 $newField[] = $this->table.".".$value;
             }
 
-            //  $builder = $this->modelWhere($request)->globalWhere($request)->select($newField)->modelJoin($request)->where(function($query) use ($request){
+            //  $builder = $this->modelWhere($request)->globalWhere($request)->select($newField)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                
             // });
             // $bindings = $builder->getBindings();
@@ -65,19 +65,22 @@ class XiaozhuJson extends Model
             //     \Log::info("cache");
             //     return $lists;
             // }else{
-            //      $lists = $this->modelWhere($request)->select($newField)->modelJoin($request)->globalWhere($request)->where(function($query) use ($request){
+            //      $lists = $this->modelWhere($request)->select($newField)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
               
             //     })->paginate($page);
             //     Redis::hset(env("DB_DATABASE")."_".$this->table,$sql,json_encode($lists));
             // }
-             $lists = $this->modelWhere($request)->select($newField)->modelJoin($request)->globalWhere($request)->where(function($query) use ($request){
+             $lists = $this->modelWhere($request)->select($newField)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
               })->paginate($page);
         }
         return json_decode($lists->toJson());
       
     }
 
-  
+     public function scopeSiteName($query,$request=null)
+    {
+        if($request && !$request->has("searchAll"))  return $query->where($this->table.'.site_name',getSiteName());
+    }
        
 
     /*常用查询语句*/
