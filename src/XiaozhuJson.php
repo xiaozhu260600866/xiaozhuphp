@@ -20,7 +20,6 @@ class XiaozhuJson extends Model
            return $this->find($id);
         }
     }
-<<<<<<< HEAD
     public function getAll($request,$page=5000,$field=[]){
         if(count($field)){
              $lists = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
@@ -46,8 +45,6 @@ class XiaozhuJson extends Model
                     })->count();
           return (int)$res;
     }
-=======
->>>>>>> a2e5f70600aa283e799bd8783280d73f7430ed94
     public function getLists($request,$page=15,$field=[])
     {
         if(count($field) == 0){
@@ -74,10 +71,7 @@ class XiaozhuJson extends Model
                     })->paginate($page);
           
         }else{
-<<<<<<< HEAD
 
-=======
->>>>>>> a2e5f70600aa283e799bd8783280d73f7430ed94
             $newField = array();
             foreach ($field as $key => $value) {
                 $newField[] = $this->table.".".$value;
@@ -102,12 +96,8 @@ class XiaozhuJson extends Model
             //     })->paginate($page);
             //     Redis::hset(env("DB_DATABASE")."_".$this->table,$sql,json_encode($lists));
             // }
-<<<<<<< HEAD
             $request["field"] = $newField;
              $lists = $this->modelWhere($request)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
-=======
-             $lists = $this->modelWhere($request)->select($newField)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
->>>>>>> a2e5f70600aa283e799bd8783280d73f7430ed94
               })->paginate($page);
         }
         return json_decode($lists->toJson());
@@ -134,11 +124,7 @@ class XiaozhuJson extends Model
         }
       if ($request->has('created_at_start'))  $query->where($this->table.'.created_at', '>=', $request->created_at_start." 00:00:00");
       if ($request->has('created_at_end')) $query->where($this->table.'.created_at', '<=', $request->created_at_end." 23:59:59");
-<<<<<<< HEAD
       if($request->has("searchType") && $request->searchType){
-=======
-      if($request->has("searchType")){
->>>>>>> a2e5f70600aa283e799bd8783280d73f7430ed94
            $date = searchDate($request->searchType);
            $query->where($this->table.'.created_at', '>=', $date["start_date"])->where($this->table.'.created_at', '<=', $date["end_date"]);
       }
