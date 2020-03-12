@@ -21,7 +21,7 @@ class XiaozhuJson extends Model
         }
     }
     public function getAll($request,$page=5000,$field=[]){
-        if(count($field)){
+        if(count($field) ==0){
              $lists = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                     })->take($page)->get();
         }else{
