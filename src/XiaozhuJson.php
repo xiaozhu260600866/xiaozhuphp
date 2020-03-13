@@ -35,7 +35,7 @@ class XiaozhuJson extends Model
         return $lists;
 
     }
-    public function getSum($field="amount"){
+    public function getSum($request,$field="amount"){
           $res = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                     })->sum($field);
           return (float)$res;
