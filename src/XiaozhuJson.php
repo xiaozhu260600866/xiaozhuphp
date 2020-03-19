@@ -35,7 +35,7 @@ class XiaozhuJson extends Model
         return $lists;
 
     }
-    public function getSum($field="amount"){
+    public function getSum($request,$field="amount"){
           $res = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                     })->sum($field);
           return (float)$res;
@@ -97,7 +97,7 @@ class XiaozhuJson extends Model
             //     Redis::hset(env("DB_DATABASE")."_".$this->table,$sql,json_encode($lists));
             // }
             $request["field"] = $newField;
-             $lists = $this->modelWhere($request)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
+             $lists = $this->modelWhere($request)->jsonWhere($request)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
               })->paginate($page);
         }
         return json_decode($lists->toJson());

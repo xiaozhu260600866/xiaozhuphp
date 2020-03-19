@@ -23,16 +23,22 @@ function text($res) {
 	return "xiaozhu";
 }
 function  del($tablename,$id){
-      if(strpos($tablename, "_") !==false){
-           $tablenameArr= explode("_",$tablename);
-           $tablename = '';
-           foreach ($tablenameArr as $key => $value) {
-               $tablename .= ucwords($value);
-           }
-        }else{
-            $tablename = ucwords($tablename);
-      }
-    $tablename = "\App\\".trim($tablename,"s");
+	 if($tablename == "user_address"){
+	 	 	$tablename = "\App\\UserAddress";
+	 	}else{
+		   if(strpos($tablename, "_") !==false){
+	           $tablenameArr= explode("_",$tablename);
+	           $tablename = '';
+	           foreach ($tablenameArr as $key => $value) {
+	               $tablename .= ucwords($value);
+	           }
+	        }else{
+	            $tablename = ucwords($tablename);
+	      }
+	      $tablename = "\App\\".trim($tablename,"s");
+	}
+    
+  	
     $res = $tablename::where("id", $id)->first();
    if($res){
         $res->delete();
@@ -73,6 +79,7 @@ function getUserInfo($user_id) {
 		$res = array(
 			"id" => $user->id,
 			"headimgurl" => $user->headimgurl,
+			"headerPic" => $user->headerPic,
 			"nickname" => $user->nickname,
 			"userInfo" => array(
 				"company_name" => $user->company_name,
