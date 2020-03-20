@@ -7,6 +7,7 @@
             "email": "260600866@qq.com"
         }
     ],
+    "version":"20200320",
     "autoload": {
      "psr-4": {
         "Xiaozhuphp\\": "src/"
