@@ -16,6 +16,9 @@ function searchDate($searchType) {
 	} elseif ($searchType == "thismonth") {
 		$start_date = date('Y-m-01') . " 00:00:00";
 		$end_date = date('Y-m-d', strtotime("$start_date +1 month -1 day")) . " 23:59:59";
+	}elseif($searchType == 'prevmonth'){
+		 $start_date = date('Y-m-01',strtotime("-1 month")). " 00:00:00";
+         $end_date = date('Y-m-t',strtotime("-1 month")) . " 23:59:59";
 	}
 	return array("start_date" => $start_date, "end_date" => $end_date);
 }
