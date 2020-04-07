@@ -131,3 +131,12 @@ function getUserInfo($user_id) {
 
 	return $res;
 }
+function exportQiniuData($data){
+	$res = "";
+	if(is_array($data)){
+		foreach ($data as $key => $value) {
+			$res.=$value["key"].",";
+		}
+	}
+	return trim($res,",");
+}
