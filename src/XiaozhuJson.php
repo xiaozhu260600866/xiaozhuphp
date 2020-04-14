@@ -45,6 +45,12 @@ class XiaozhuJson extends Model
                     })->count();
           return (int)$res;
     }
+    public function getFirst($request=null,$field="id",$value){
+         $res = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
+                    })->where($field,$value)->first();
+          return $res;
+
+    }
     public function getLists($request,$page=15,$field=[])
     {
         if(count($field) == 0){
