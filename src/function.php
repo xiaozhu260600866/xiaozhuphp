@@ -135,7 +135,7 @@ function exportQiniuData($data){
 	$res = "";
 	if(is_array($data)){
 		foreach ($data as $key => $value) {
-			$res.=$value["key"].",";
+			$res.=$value["file"].",";
 		}
 	}
 	return trim($res,",");
