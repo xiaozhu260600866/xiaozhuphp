@@ -46,6 +46,7 @@ function importCover($cover)
    
 }
 function  del($tablename,$id){
+
 	 if($tablename == "user_address"){
 	 	 	$tablename = "\App\\UserAddress";
 	 	}else{
@@ -61,7 +62,7 @@ function  del($tablename,$id){
 	      $tablename = "\App\\".trim($tablename,"s");
 	}
     
-  	
+ 
     $res = $tablename::where("id", $id)->first();
    if($res){
         $res->delete();
