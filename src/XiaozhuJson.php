@@ -2,6 +2,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redis;
 /*全局JSON*/
+use Maatwebsite\Excel\Facades\Excel;
 class XiaozhuJson extends Model
 {
     /*追加属性去json开始*/
@@ -53,7 +54,35 @@ class XiaozhuJson extends Model
     }
     public function getLists($request,$page=15,$field=[])
     {
-        if(count($field) == 0){
+        if($request->has('excel') && $request->excel){
+            @ini_set('memory_limit', '1512M');
+            $fields = json_decode($request->field);
+            $keys = array();
+            foreach ($fields as $key => $value) {
+                $keys[] = $value->label;
+            }
+            $lists = $this->getAll($request,$page,$field);
+            if (!count($lists))  dd("没数据");
+            $filename = '导出列表';
+            $data  = array();
+            foreach ($lists as $key => $value) {
+                $date = (string) ($value->created_at);
+                $value  = json_encode($value);
+                $value = json_decode($value,true);
+                foreach ($fields as $key2 => $field) {
+                    $field_ = explode('.',$field->prop);
+                    if($field_[0] =="order_no"){
+                        $value_ = "~".$value["order_no"];
+                    }else{
+                        $value_ = count($field_) == 1 ? $value[$field_[0]] : $value[$field_[0]][$field_[1]];
+                    }
+                    
+                    $data[$key][] = $value_;
+                }
+            }
+            $this->toExcel($data, $keys, $filename);
+        }else{
+           if(count($field) == 0){
             // $builder = $this->modelWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                
             // });
@@ -107,6 +136,9 @@ class XiaozhuJson extends Model
               })->paginate($page);
         }
         return json_decode($lists->toJson());
+
+        }
+       
       
     }
 
@@ -136,6 +168,15 @@ class XiaozhuJson extends Model
       }
 
         return $query;
+    }
+    public function toExcel($data, $title, $filename) {
+        $GLOBALS['title'] = $title;
+        Excel::create($filename, function ($excel) use ($filename, $data) {
+            $excel->sheet($filename, function ($sheet) use ($data) {
+                $sheet->row(1, $GLOBALS["title"]);
+                $sheet->rows($data);
+            });
+        })->export('xls');
     }
 
      
