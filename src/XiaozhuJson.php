@@ -36,6 +36,23 @@ class XiaozhuJson extends Model
         return $lists;
 
     }
+    public function getLabel($request,$label=["name"],$append=[]){
+        $arr = array();
+        $lists = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
+                    })->get();
+        foreach ($lists as $key => $value) {
+            $value = json_encode($value);
+            $value = json_decode($value,true);
+            $arr[$key]["id"] = $value["id"];
+            $arr[$key]["label"] = $value[$label];
+            foreach ($append as $key2 => $value2) {
+               $arr[$key][$key2] = $value[$value2];  
+            }
+
+            $arr[$key]["value"] = $value["id"];
+        }
+        return $arr;
+    }
     public function getSum($request,$field="amount"){
           $res = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                     })->sum($field);
