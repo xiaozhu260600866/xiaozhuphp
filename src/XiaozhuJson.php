@@ -119,8 +119,14 @@ class XiaozhuJson extends Model
             //     Redis::hset(env("DB_DATABASE")."_".$this->table,$sql,json_encode($lists));
 
             // }
-           $lists = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
+           if($request->has('onlyTrashed')){
+                $lists = $this->modelWhere($request)->onlyTrashed()->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                     })->paginate($page);
+           }else{
+             $lists = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
+                    })->paginate($page);
+           }
+          
           
         }else{
 
@@ -149,8 +155,14 @@ class XiaozhuJson extends Model
             //     Redis::hset(env("DB_DATABASE")."_".$this->table,$sql,json_encode($lists));
             // }
             $request["field"] = $newField;
-             $lists = $this->modelWhere($request)->jsonWhere($request)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
-              })->paginate($page);
+            if($request->has('onlyTrashed')){
+                $lists = $this->onlyTrashed()->modelWhere($request)->jsonWhere($request)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
+                })->paginate($page);
+            }else{
+                $lists = $this->modelWhere($request)->jsonWhere($request)->modelJoin($request)->globalWhere($request)->siteName($request)->where(function($query) use ($request){
+                })->paginate($page);
+            }
+             
         }
         return json_decode($lists->toJson());
 
