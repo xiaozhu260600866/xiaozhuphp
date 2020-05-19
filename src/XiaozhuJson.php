@@ -36,7 +36,7 @@ class XiaozhuJson extends Model
         return $lists;
 
     }
-    public function getLabel($request,$label=["name"],$append=[]){
+    public function getLabel($request,$label="name",$append=[]){
         $arr = array();
         $lists = $this->modelWhere($request)->jsonWhere($request)->globalWhere($request)->modelJoin($request)->siteName($request)->where(function($query) use ($request){
                     })->get();
